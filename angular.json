@@ -61,7 +61,7 @@
           "configurations": {
             "production": {
               "browserTarget": "hello-angular:build:production"
-            }, 
+            },
             "hmr": {
               "hmr": true
             }
@@ -133,5 +133,10 @@
       }
     }
   },
-  "defaultProject": "hello-angular"
+  "defaultProject": "hello-angular",
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false
+    }
+  }
 }
