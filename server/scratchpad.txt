@@ -1,0 +1,57 @@
+{
+  'groupAll': [ 
+   {
+     '$group' : {
+       _id : 'ALL',
+       totalPrice: { $sum: '$price_unit' },
+       maxPrice: { $max: '$price_unit' },
+       minPrice: { $min: '$price_unit' },
+       avePrice: { $avg: '$price_psf' },
+       count: { $sum: 1 }
+     }
+   } ],
+  'groupYearly': [ 
+   {
+     '$group' : {
+       _id : { year: { $year: '$sales_date' }},
+       totalPrice: { $sum: '$price_unit' },
+       maxPrice: { $max: '$price_unit' },
+       minPrice: { $min: '$price_unit' },
+       avePrice: { $avg: '$price_psf' },
+       count: { $sum: 1 }
+     }
+   } ],
+  'groupMonthly': [ 
+   {
+     '$group' : {
+       _id : { month: { $month: '$sales_date' },  year: { $year: '$sales_date' }},
+       totalPrice: { $sum: '$price_unit' },
+       maxPrice: { $max: '$price_unit' },
+       minPrice: { $min: '$price_unit' },
+       avePrice: { $avg: '$price_psf' },
+       count: { $sum: 1 }
+     }
+   }
+ ],
+  'groupMonthlyCondo': [ {
+   '$group' : {
+     _id : { month: { $month: '$sales_date' },  year: { $year: '$sales_date' }, condo_id: '$condo_id' },
+     totalPrice: { $sum: '$price_unit' },
+     maxPrice: { $max: '$price_unit' },
+     minPrice: { $min: '$price_unit' },
+     avePrice: { $avg: '$price_psf' },
+     count: { $sum: 1 }
+   }
+ } ],
+  'groupCondo': [ {
+   '$group' : {
+     _id : { condo_id: '$condo_id' },
+     totalPrice: { $sum: '$price_unit' },
+     maxPrice: { $max: '$price_unit' },
+     minPrice: { $min: '$price_unit' },
+     avePrice: { $avg: '$price_psf' },
+     count: { $sum: 1 }
+   }
+ } ]
+
+}

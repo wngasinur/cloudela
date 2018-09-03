@@ -1,0 +1,77 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="row">
+  <div class="col-sm">
+    <ng-select [items]="dropdowns$ | async" bindLabel="name" bindValue="id" (change)="onDropdownChange($event)">
+    </ng-select>
+  </div>
+</div>
+<div class="row">
+
+
+  <div class="col-sm">
+
+    <div class="map" leaflet (leafletMapReady)="onMapReady($event)" [leafletOptions]="options" [leafletLayers]="layers"></div>
+
+  </div>
+</div>
+<div class="row">
+    <div class="col-sm" *ngIf="summary$ | async as summary; else loading">
+      ALL Singapore<br>
+        Current year $psf : {{summary.currentYrAvgPsf | currency}}<br>
+        Last 5yr $psf  : {{summary.last5yrAvgPsf | currency}}<br>
+        All years  $psf : {{summary.allAvgPsf | currency}}<br>
+    </div>
+
+    <div class="col-sm" [hidden]="!selectedRegion">
+    <div   *ngIf="areaSummary$ | async as areaSummary; else loading">
+        Area : {{selectedRegion  }}<br>
+        Current year $psf : {{areaSummary.currentYrAvgPsf | currency}}<br>
+        Last 5yr $psf  : {{areaSummary.last5yrAvgPsf | currency}}<br>
+        All years  $psf : {{areaSummary.allAvgPsf | currency}}<br>
+      </div>
+    </div>
+
+    <div class="col-sm" [hidden]="!selectedCondo">
+    <div *ngIf="condoSummary$ | async as condoSummary; else loading">
+      Condo : {{condoSummary.condoMaster.name }}<br>
+      Completed In : {{condoSummary.condoMaster.completed_in }}<br>
+      Number of Unit : {{condoSummary.condoMaster.number_of_unit }}<br>
+      Tenure : {{condoSummary.condoMaster.tenure }}<br>
+
+      Current year $psf : {{condoSummary.psfSummary.currentYrAvgPsf | currency}}<br>
+      Last 5yr $psf  : {{condoSummary.psfSummary.last5yrAvgPsf | currency}}<br>
+      All years  $psf : {{condoSummary.psfSummary.allAvgPsf | currency}}<br>
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm" [hidden]="!selectedRegion">
+        <div   *ngIf="condoListSummary$ | async as condoListSummary; else loading">
+            Area : {{selectedRegion}}<br>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Condo Name</th>
+                    <th scope="col">Current year $psf</th>
+                    <th scope="col">Last 5yr $psf</th>
+                    <th scope="col">All years $psf</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of condoListSummary">
+                        <td>{{item.condoMaster.name}}</td>
+                        <td>{{item.psfSummary.currentYrAvgPsf | currency}}</td>
+                        <td>{{item.psfSummary.last5YrAvgPsf | currency}}</td>
+                        <td>{{item.psfSummary.allAvgPsf | currency}}</td>
+            
+                    </tr>
+                </tbody>
+                </table> 
+            
+          </div>
+        </div>
+</div>
+
+<ng-template #loading>Loading ...</ng-template>
+
+

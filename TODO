@@ -1,0 +1,24 @@
+
+Todo:
+  ☐ Item
+  ✔ load default all psf during landing @done(18-08-15 22:39)
+  ✔ load polyline and map when select region @done(18-08-18 22:01)
+  ✔ load psf info when select region @done(18-08-18 22:02)
+  ✔ load condo info in map when select region @started(18-08-18 22:02) @done(18-08-22 20:03) @lasted(3d22h1m2s)
+  ✔ load list of condo in table when select region @done(18-08-22 22:26)
+  - backend - write aggregate psf job
+  - backend - enhance condo master map job
+  - finalize all backend jobs
+  - register / login
+  - feedback form
+  - styling
+  - deployment
+
+
+Next Release:
+  - available for sales flag - taken from listing
+  - compare region psf during initial load
+  - compare condo psf
+  - seo
+  
+
