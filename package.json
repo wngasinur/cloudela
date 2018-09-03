@@ -1,5 +1,5 @@
 {
-  "name": "hello-angular",
+  "name": "cloudela",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,8 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "mock": "json-server --watch db.json --port 3004",
-    "dev-bak": "concurrently  \"ng serve --host=0.0.0.0 --configuration hmr\" \"tsc -w -p server\" \"nodemon dist/server/server.js\"",
-    "dev": "concurrently  \"ng build --prod  --watch\" \"tsc -w -p server\" \"nodemon dist/server/server.js\"",
+    "dev": "concurrently  \"ng serve --disableHostCheck true --host=0.0.0.0 --configuration hmr\" \"nodemon\"",
     "prod": "concurrently  \"ng build --aot --prod && tsc -p server && node dist/server/app.js\""
   },
   "private": true,
