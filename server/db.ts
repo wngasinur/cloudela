@@ -12,7 +12,8 @@ const opts = {
     poolSize: 100,
     reconnectTries: Number.MAX_VALUE,
     reconnectInterval: 500,
-    autoReconnect: true
+    autoReconnect: true,
+    useNewUrlParser: true
   };
 
 mongoose.connect(mongoUrl, opts).then(

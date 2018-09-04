@@ -15,9 +15,13 @@ const prod = ENVIRONMENT === 'production'; // Anything else is treated as 'dev'
 
 export const SESSION_SECRET = process.env['SESSION_SECRET'];
 export const MONGODB_URI = process.env['MONGODB_URI'];
+export const FRONTEND_DOMAIN = process.env['FRONTEND_DOMAIN'];
+export const API_DOMAIN = process.env['API_DOMAIN'];
+export const GOOGLE_OAUTH_CLIENTID = process.env['GOOGLE_OAUTH_CLIENTID'];
+export const GOOGLE_OAUTH_CLIENTSECRET = process.env['GOOGLE_OAUTH_CLIENTSECRET'];
 
 
-logger.info(MONGODB_URI);
+logger.info('xxx' + SESSION_SECRET);
 if (!SESSION_SECRET) {
     logger.error('No client secret. Set SESSION_SECRET environment variable.');
     process.exit(1);

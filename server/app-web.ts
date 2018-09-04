@@ -8,12 +8,13 @@ const flash = require('express-flash');
 import * as path from 'path';
 import * as passport from 'passport';
 import * as expressValidator from 'express-validator';
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
+import { MONGODB_URI, SESSION_SECRET, FRONTEND_DOMAIN } from './util/secrets';
 import './db';
 const cors = require('cors');
 import googleAuth from './auth/google';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
+import * as connectMongo from 'connect-mongo';
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: '.env' });
 
@@ -22,9 +23,12 @@ import * as homeController from './controllers/home';
 
 // Create Express server
 const app = express();
+
+const MongoStore = connectMongo(session);
+
 const auth = () => passport.authenticate('jwt', { session: false });
 googleAuth();
-app.use(cors({credentials: true, origin: 'http://laviva.com:4200' }));
+app.use(cors({credentials: true, origin: FRONTEND_DOMAIN }));
 // Express configuration
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, '../views'));
@@ -37,6 +41,7 @@ app.use(cookieParser());
 app.use(session({
   resave: true,
   saveUninitialized: true,
+  store: new MongoStore({url: MONGODB_URI}),
   secret: SESSION_SECRET
 }));
 app.use(passport.initialize());
@@ -102,7 +107,7 @@ app.get('/auth/google/callback',
     req.session.token = req.user.token;
     const jwtToken = jwt.sign(req.user, 'secret');
     res.cookie('jwt', jwtToken);
-    res.redirect(`http://laviva.com:4200/`);
+    res.redirect(FRONTEND_DOMAIN);
   }
 );
 

@@ -1,9 +1,10 @@
 import * as passport from 'passport';
-import * as url from 'url';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import * as express from 'express';
-import {ExtractJwt, Strategy} from 'passport-jwt';
+import { Strategy} from 'passport-jwt';
 import { User } from '../schema';
+import { GOOGLE_OAUTH_CLIENTID, GOOGLE_OAUTH_CLIENTSECRET, API_DOMAIN } from '../util/secrets';
+
 
 export default function () {
 
@@ -16,9 +17,9 @@ export default function () {
     });
     // Use google strategy
     passport.use(new GoogleStrategy({
-        clientID: '736950083113-4lpsktal87gcqmg59qtu9lol8tdhobem.apps.googleusercontent.com',
-        clientSecret: 'zF1C4l8XS9StJen8DhCBAdPY',
-        callbackURL: 'http://laviva.com:3000/auth/google/callback',
+        clientID: GOOGLE_OAUTH_CLIENTID,
+        clientSecret: GOOGLE_OAUTH_CLIENTSECRET,
+        callbackURL: API_DOMAIN + '/auth/google/callback',
         passReqToCallback: true
     },
         async function (req: express.Request, accessToken, refreshToken, profile, done) {

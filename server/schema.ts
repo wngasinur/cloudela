@@ -1,5 +1,5 @@
 import mongoose = require('mongoose');
-
+mongoose.set('useCreateIndex', true);
 const salesListingSchema = new mongoose.Schema({
     id:    String,
     property_segment: String,
