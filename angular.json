@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hello-angular": {
+    "cloudela": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -56,12 +56,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hello-angular:build"
+            "browserTarget": "cloudela:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hello-angular:build:production"
-            },
+              "browserTarget": "cloudela:build:production"
+            }, 
             "hmr": {
               "hmr": true
             }
@@ -70,7 +70,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hello-angular:build"
+            "browserTarget": "cloudela:build"
           }
         },
         "test": {
@@ -105,7 +105,7 @@
         }
       }
     },
-    "hello-angular-e2e": {
+    "cloudela-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -113,11 +113,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "hello-angular:serve"
+            "devServerTarget": "cloudela:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "hello-angular:serve:production"
+              "devServerTarget": "cloudela:serve:production"
             }
           }
         },
@@ -133,10 +133,5 @@
       }
     }
   },
-  "defaultProject": "hello-angular",
-  "cli": {
-    "warnings": {
-      "typescriptMismatch": false
-    }
-  }
+  "defaultProject": "cloudela"
 }

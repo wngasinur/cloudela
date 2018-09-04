@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   hmr: false,
-  apiUrl: 'http://laviva.com:3000'
+  apiUrl: 'http://api.wngasinur.com'
 };
