@@ -3,3 +3,4 @@ dist
 .env
 *.log
 src/public
+ecosystem.config.js

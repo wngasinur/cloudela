@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { AuthService } from '../core/auth.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ import { ToastComponent } from '../shared/toast/toast.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  apiUrl = environment.apiUrl;
 
   loginForm: FormGroup;
   email = new FormControl('', [
@@ -36,6 +39,8 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     });
+
+    console.log(this.apiUrl);
   }
 
   setClassEmail() {
