@@ -4,7 +4,7 @@ import { logger } from '../util/log';
 import { SalesHistory } from '../schema';
 
 // let districts = ['dtdistrict13', 'dtdistrict14', 'dtdistrict15', 'dtdistrict16', 'dtdistrict17', 'dtdistrict18', 'dtdistrict19', 'dtdistrict20', 'dtdistrict21', 'dtdistrict22', 'dtdistrict23', 'dtdistrict24', 'dtdistrict25', 'dtdistrict26', 'dtdistrict27', 'dtdistrict28'];
-export async function aggSalesHistory() {
+export async function syncAggSalesHistory() {
     logger.info('Starting sales history agg');
 
     await SalesHistory.aggregate([

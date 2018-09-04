@@ -20,6 +20,7 @@ dotenv.config({ path: '.env' });
 
 // Controllers (route handlers)
 import * as homeController from './controllers/home';
+import * as jobController from './controllers/job';
 
 // Create Express server
 const app = express();
@@ -86,6 +87,11 @@ app.get('/api/summary_area', auth(), homeController.summary_area);
 app.get('/api/condo-info', auth(), homeController.condo_info);
 app.get('/api/condo-list', auth(), homeController.condo_list);
 
+
+app.get('/api/job/sync-condo-master', auth(), jobController.condoMaster);
+app.get('/api/job/map-polygon', auth(), jobController.mapPolygon);
+app.get('/api/job/sales-history', auth(), jobController.salesHistory);
+app.get('/api/job/agg-sales-history', auth(), jobController.aggSalesHistory);
 /**
  * OAuth authentication routes. (Sign in)
  */

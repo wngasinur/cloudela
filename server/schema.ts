@@ -37,7 +37,7 @@ const condoDirectorySchema = new mongoose.Schema({
 
 const condoMasterSchema = new mongoose.Schema({
     id: String,
-    name: {type: String},
+    name: {type: String, unique: true},
     sync_url: String,
     developer: String,
     tenure: String,

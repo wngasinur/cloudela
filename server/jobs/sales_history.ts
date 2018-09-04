@@ -30,6 +30,7 @@ export async function syncSalesHistory() {
 
     const condoMasters = await CondoMaster.find({}).exec();
 
+    SalesHistory.deleteMany({});
     let savingLength = 0;
     for (const tmp of condoMasters) {
         const condoMaster = tmp.toObject();
@@ -41,7 +42,7 @@ export async function syncSalesHistory() {
         }
         let page = 1;
         do {
-            logger.info('Page ' + page);
+            // logger.info('Page ' + page);
             const resp: SalesHistoryModel.RootObject = await extractPrice(page, condoMaster.id);
             if (!resp || resp.data.rows.length === 0) {
                 break;
@@ -55,6 +56,8 @@ export async function syncSalesHistory() {
             let size_sqm: number;
             let price_psf: number;
             let price_unit: number;
+
+            const salesHistoriesArr = [];
 
             for (const tmpSalesHistory of data.rows) {
                 const tmpDate = tmpSalesHistory[0];
@@ -107,7 +110,7 @@ export async function syncSalesHistory() {
 
                 // logger.info(sales_date + '|' + block + '|' + unit + '|' + size_sqft + '|' + size_sqm + '|' + price_psf + '|' + price_unit)
 
-                const salesHistory = new SalesHistory({
+                const salesHistory = {
                     condo_id: condoMaster.id,
                     sales_date: sales_date,
                     block: block,
@@ -116,11 +119,15 @@ export async function syncSalesHistory() {
                     size_sqm: size_sqm,
                     price_psf: price_psf,
                     price_unit: price_unit
-                });
+                };
                 // logger.info('Saving ', salesHistory.toObject());
                 savingLength++;
-                salesHistory.save();
+
+                salesHistoriesArr.push(salesHistory);
+                // salesHistory.save();
             }
+
+            await SalesHistory.insertMany(salesHistoriesArr);
 
             page++;
         } while (true);

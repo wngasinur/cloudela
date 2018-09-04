@@ -136,10 +136,16 @@ export async function syncCondoMaster() {
         if (condoInfo) {
           const updatedCondo = { ...condo, id: condoInfo.id, geometry: { type: 'Point' , coordinates: [condoInfo.coordinates.lng, condoInfo.coordinates.lat]} };
           // logger.info(updatedCondo);
-          await CondoMaster.findOneAndUpdate({ name: condo.name }, updatedCondo, { upsert: true, new: true }, (err, doc, raw) => {
+          const updated = await CondoMaster.findOneAndUpdate({ name: condo.name }, updatedCondo, { upsert: false, new: true }, (err, doc, raw) => {
             if (err)
               logger.error('Error saving condo master' + err);
           });
+          if (!updated) {
+            await CondoMaster.create( updatedCondo, (err, doc, raw) => {
+              if (err)
+                logger.error('Error saving condo master' + err);
+            });
+          }
         } else {
           logger.warn('Condo ' + condo.name + ' cant be identified');
         }

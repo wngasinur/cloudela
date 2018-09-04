@@ -3,7 +3,7 @@ import * as Agenda from 'agenda';
 import { syncCondoMaster } from './jobs/condo_master';
 
 import { logger } from './util/log';
-import { aggSalesHistory } from './jobs/agg_sales_history';
+import { syncAggSalesHistory } from './jobs/agg_sales_history';
 import fs = require('fs');
 import { MONGODB_URI } from './util/secrets';
 import { syncCondoMasterLoc } from './jobs/condo_master_loc';
@@ -14,7 +14,7 @@ const agenda = new Agenda({db: {address: MONGODB_URI, collection: 'agendaJobs'},
 
 agenda.define('Sales History', async (job, done) => {
   await syncSalesHistory();
-  await aggSalesHistory();
+  await syncAggSalesHistory();
 });
 agenda.define('Condo Master', async (job, done) => {
   await syncMapPolygons();
