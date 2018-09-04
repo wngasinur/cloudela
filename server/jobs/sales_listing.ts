@@ -4,6 +4,7 @@ import axios from 'axios';
 import { SalesListingModel } from '../model';
 import { SalesListing } from '../schema';
 import './db';
+import { logger } from '../util/log';
 
 async function  extractPrice(page: number, district: string): Promise<SalesListingModel.Response> {
     const url = 'https://www.99.co/api/v2/web/search/listings';
@@ -20,12 +21,12 @@ const districts = ['dtdistrict01', 'dtdistrict02', 'dtdistrict03', 'dtdistrict04
 // let districts = ['dtdistrict13', 'dtdistrict14', 'dtdistrict15', 'dtdistrict16', 'dtdistrict17', 'dtdistrict18', 'dtdistrict19', 'dtdistrict20', 'dtdistrict21', 'dtdistrict22', 'dtdistrict23', 'dtdistrict24', 'dtdistrict25', 'dtdistrict26', 'dtdistrict27', 'dtdistrict28'];
 
 (async () => {
-    console.log('Started ' + new Date());
+    logger.info('Started  sales listing job');
     for (const district of districts) {
-        console.log('Saving for ' + district);
+        logger.info('Saving for ' + district);
         let page = 1;
         do {
-            console.log('Page ' + page);
+            logger.info('Page ' + page);
             const resp: SalesListingModel.Response = await extractPrice(page, district);
             if (resp.data.sections.length === 0) {
                 break;
@@ -35,14 +36,14 @@ const districts = ['dtdistrict01', 'dtdistrict02', 'dtdistrict03', 'dtdistrict04
                 const t = new SalesListing(listing);
                 t.save(error => {
                     if (error !== undefined) {
-                        console.error('Error' + error);
+                        logger.error('Error' + error);
                     }
                 });
             });
             page++;
         } while (true);
     }
-    console.log('Finished ' + new Date());
+    logger.info('Finished ' + new Date());
 })();
 
 

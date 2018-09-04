@@ -1,6 +1,6 @@
 import mongoose = require('mongoose');
 import * as bluebird from 'bluebird';
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
+import { MONGODB_URI } from './util/secrets';
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;

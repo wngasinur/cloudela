@@ -128,9 +128,9 @@ export async function syncSalesHistory() {
 
     logger.info('Saving length ' + savingLength);
 }
-(async () => {
-  await syncSalesHistory();
-})();
+// (async () => {
+//   await syncSalesHistory();
+// })();
 
 
 

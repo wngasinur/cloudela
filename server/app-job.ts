@@ -4,23 +4,24 @@ import { syncCondoMaster } from './jobs/condo_master';
 
 import { logger } from './util/log';
 import { aggSalesHistory } from './jobs/agg_sales_history';
-const fs = require('fs');
+import fs = require('fs');
+import { MONGODB_URI } from './util/secrets';
+import { syncCondoMasterLoc } from './jobs/condo_master_loc';
+import { syncSalesHistory } from './jobs/sales_history';
+import { syncMapPolygons } from './jobs/map_polygons';
 
-const agenda = new Agenda({db: {address: 'localhost:27017/agenda-test', collection: 'agendaJobs'}, processEvery: '30 seconds'});
+const agenda = new Agenda({db: {address: MONGODB_URI, collection: 'agendaJobs'}, processEvery: '30 seconds'});
 
-
-agenda.define('job1', async (job, done) => {
-  logger.info('starting job1');
+agenda.define('Sales History', async (job, done) => {
+  await syncSalesHistory();
   await aggSalesHistory();
-  logger.info('end job1');
 });
-
-
-agenda.define('job2', async (job, done) => {
-  logger.info('starting job2');
+agenda.define('Condo Master', async (job, done) => {
+  await syncMapPolygons();
   await syncCondoMaster();
-  logger.info('end job2');
+  await syncCondoMasterLoc();
 });
+
 
 agenda.on('start', job => {
   logger.info('Job %s starting', job.attrs.name);
@@ -30,9 +31,9 @@ agenda.on('start', job => {
 
   await agenda.start();
 
-  await agenda.purge();
-  
-  await agenda.every('2 minute', 'job2');
+  await agenda.every('40 12 * * *', 'Condo Master');
+
+  await agenda.every('40 13 * * *', 'Sales History');
 
   // await agenda.now('job1');
 

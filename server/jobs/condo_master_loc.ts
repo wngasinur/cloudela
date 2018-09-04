@@ -28,9 +28,9 @@ export async function syncCondoMasterLoc() {
         });
     });
 }
-(async () => {
-  await syncCondoMasterLoc();
-})();
+// (async () => {
+//   await syncCondoMasterLoc();
+// })();
 
 
 

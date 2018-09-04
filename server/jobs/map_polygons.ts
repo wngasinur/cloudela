@@ -1,12 +1,10 @@
 // import request from 'request-promise';
 // import { MongoClient } from 'mongodb';
 import axios from 'axios';
-import qs = require('querystring');
 import polyline = require('@mapbox/polyline');
 import { MapPolygonModel } from '../model';
 import { MapPolygon } from '../schema';
 import '../db';
-import moment = require('moment');
 import { logger } from '../util/log';
 import * as _ from 'lodash';
 
@@ -67,9 +65,9 @@ export async function syncMapPolygons() {
 
         logger.info('Save length' + saveCounter);
 }
-(async () => {
-  await syncMapPolygons();
-})();
+// (async () => {
+//   await syncMapPolygons();
+// })();
 
 
 

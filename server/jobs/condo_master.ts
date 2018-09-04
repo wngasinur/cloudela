@@ -157,9 +157,8 @@ export async function syncCondoMaster() {
 
   await browser.close();
 }
-
-(async () => {
-  // await extractCondoInfo('THE RESIDENCES AT W SINGAPORE SENTOSA COVE')
-  // await syncCondoMaster();
-})();
+// (async () => {
+//   await extractCondoInfo('THE RESIDENCES AT W SINGAPORE SENTOSA COVE')
+//   await syncCondoMaster();
+// })();
 

@@ -1,14 +1,7 @@
-// import request from 'request-promise';
-// import { MongoClient } from 'mongodb';
-import axios from 'axios';
+
 import '../db';
-import moment = require('moment');
 import { logger } from '../util/log';
-import { map } from 'async';
-import { ObjectId, ObjectID } from 'bson';
-import mongoose = require('mongoose');
-import { SalesHistory, SalesHistoriesCondo, SalesHistoriesAvgPsf } from '../schema';
-import { SalesHistoryAvgPsfModel } from '../model';
+import { SalesHistory } from '../schema';
 
 // let districts = ['dtdistrict13', 'dtdistrict14', 'dtdistrict15', 'dtdistrict16', 'dtdistrict17', 'dtdistrict18', 'dtdistrict19', 'dtdistrict20', 'dtdistrict21', 'dtdistrict22', 'dtdistrict23', 'dtdistrict24', 'dtdistrict25', 'dtdistrict26', 'dtdistrict27', 'dtdistrict28'];
 export async function aggSalesHistory() {
