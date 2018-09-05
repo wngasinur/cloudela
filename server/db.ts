@@ -8,7 +8,7 @@ const mongoUrl = MONGODB_URI;
 
 const opts = {
     keepAlive: 120,
-    socketTimeoutMS: 90000,
+    socketTimeoutMS: 90000 * 20,
     poolSize: 100,
     reconnectTries: Number.MAX_VALUE,
     reconnectInterval: 500,
