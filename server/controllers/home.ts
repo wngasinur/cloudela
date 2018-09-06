@@ -97,6 +97,10 @@ export let condo_list = asyncMiddleware(async (req: Request, res: Response) => {
 
   const response = await SalesHistoriesCondo.aggregate([
     {
+      $match: { '_id.area': req.query.id }
+    }
+    ,
+    {
       $lookup:
       {
         from: 'condomasters',
@@ -108,10 +112,6 @@ export let condo_list = asyncMiddleware(async (req: Request, res: Response) => {
     {
       $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$con', 0] }, '$$ROOT'] } }
     },
-    {
-      $match: { area: req.query.id }
-    }
-    ,
     {
       $group: {
         _id: {
