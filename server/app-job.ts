@@ -10,7 +10,15 @@ import { syncCondoMasterLoc } from './jobs/condo_master_loc';
 import { syncSalesHistory } from './jobs/sales_history';
 import { syncMapPolygons } from './jobs/map_polygons';
 
-const agenda = new Agenda({db: {address: MONGODB_URI, collection: 'agendaJobs'}, processEvery: '30 seconds'});
+const agenda = new Agenda({db: {address: MONGODB_URI, collection: 'agendaJobs', options: {
+  keepAlive: 120,
+  socketTimeoutMS: 90000 * 20,
+  poolSize: 100,
+  reconnectTries: Number.MAX_VALUE,
+  reconnectInterval: 500,
+  autoReconnect: true,
+  useNewUrlParser: true
+}}, processEvery: '30 seconds'});
 
 agenda.define('Sales History', async (job, done) => {
   await syncSalesHistory();
