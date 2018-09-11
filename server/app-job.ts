@@ -39,9 +39,9 @@ agenda.on('start', job => {
 
   await agenda.start();
 
-  await agenda.every('50 13 * * *', 'Condo Master');
+  await agenda.every('00 13 * * */4', 'Condo Master');
 
-  await agenda.every('55 14 * * *', 'Sales History');
+  await agenda.every('00 14 * * */4', 'Sales History');
 
   // await agenda.now('job1');
 
