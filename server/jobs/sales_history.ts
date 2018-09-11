@@ -30,7 +30,7 @@ export async function syncSalesHistory() {
 
     const condoMasters = await CondoMaster.find({}).exec();
 
-    SalesHistory.deleteMany({});
+    await SalesHistory.deleteMany({}).exec();
     let savingLength = 0;
     for (const tmp of condoMasters) {
         const condoMaster = tmp.toObject();
